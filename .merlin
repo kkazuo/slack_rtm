@@ -1,0 +1,10 @@
+PKG core
+PKG async
+PKG async_ssl
+PKG yojson
+PKG cohttp
+PKG cohttp.async
+PKG websocket
+PKG websocket.async
+S src/ws
+S src/rtm
