@@ -23,7 +23,8 @@ let () =
     Command.Spec.(
       empty
       +> flag "-token" (optional string) ~doc:"string Slack API Token"
+      +> flag "-type" (listed string) ~doc:"string Show only selected type"
     )
-    (fun token () -> Rtm.rtm_connect token)
+    (fun token types () -> Rtm.rtm_connect token types)
   |> Command.run
-    ~version:"0.1.0"
+    ~version:"0.2.0"

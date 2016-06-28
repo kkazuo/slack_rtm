@@ -35,7 +35,7 @@ let get_ws_uri token =
   Pipe.to_list (Cohttp_async.Body.to_pipe body) >>| fun strings ->
   get_url_from_json (String.concat strings)
 
-let rtm_parse s =
+let rtm_parse ~type_filter s =
   let open Yojson.Safe.Util in
   let json = Yojson.Safe.from_string s in
   match json |> member "type" |> to_string with
@@ -48,8 +48,13 @@ let rtm_parse s =
     ()
   | "presence_change"
   | "reconnect_url" -> ()
-  | _ ->
-    printf "%s\n" s
+  | _ as t ->
+    match type_filter with
+    | [] ->
+      printf "%s\n" s
+    | _ ->
+      if List.exists type_filter ~f:(fun x -> x = t)
+      then printf "%s\n" s
 
 let ping id w =
   `Assoc [ ("type", `String "ping")
@@ -59,7 +64,7 @@ let ping id w =
   |> Yojson.Basic.to_string
   |> Pipe.write w
 
-let f _sock r w _ssl =
+let f ~type_filter _sock r w _ssl =
   let id = ref 0 in
   let read_line_and_write_to_pipe w =
     let rec loop () =
@@ -85,13 +90,13 @@ let f _sock r w _ssl =
       (*Pipe.close w;*)
       Shutdown.exit 0
     | `Ok s ->
-      rtm_parse s;
+      rtm_parse s ~type_filter;
       return () >>= loop in
   don't_wait_for @@ read_line_and_write_to_pipe w;
   don't_wait_for @@ keepalive w;
   loop ()
 
-let rtm_connect token =
+let rtm_connect token types =
   (match token with
   | None -> Sys.getenv "SLACK_API_TOKEN"
   | Some _ -> token)
@@ -103,7 +108,7 @@ let rtm_connect token =
     get_ws_uri token
   >>= function
   | Some uri ->
-    Ws.ws_client uri ~f
+    Ws.ws_client uri ~f:(f ~type_filter:types)
   | None ->
     printf "Fail rtm.start";
     return ()
