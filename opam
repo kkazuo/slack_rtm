@@ -1,4 +1,4 @@
-opam-version: "1.2.2"
+opam-version: "1.2"
 name: "slack-rtm"
 version: "0.2.0"
 maintainer: "Kazuo Koga <obiwanko@me.com>"
