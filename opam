@@ -1,6 +1,6 @@
 opam-version: "1.2"
 name: "slack-rtm"
-version: "0.2.0"
+version: "0.2.1"
 maintainer: "Kazuo Koga <obiwanko@me.com>"
 authors: "Kazuo Koga <obiwanko@me.com>"
 license: "Apache License, Version 2.0"
@@ -8,8 +8,15 @@ homepage: "https://github.com/kkazuo/slack_rtm"
 bug-reports: "https://github.com/kkazuo/slack_rtm/issues"
 dev-repo: "https://github.com/kkazuo/slack_rtm.git"
 build: [
-  ["corebuild" "src/slack_rtm.native"
-               "-pkgs" "async_ssl,websocket.async,cohttp.async,yojson"]
+  [ "ocamlbuild"
+    "-use-ocamlfind"
+    "-pkg" "core,async_ssl,websocket.async,cohttp.async,yojson"
+    "-tag" "thread"
+    "-tag" "debug"
+    "-tag" "bin_annot"
+    "-tag" "short_paths"
+    "-cflags" "-strict-sequence"
+    "src/slack_rtm.native" ]
   ["cp" "slack_rtm.native" "slack-rtm"]
 ]
 install: [

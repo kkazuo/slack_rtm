@@ -27,4 +27,4 @@ let () =
     )
     (fun token types () -> Rtm.rtm_connect token types)
   |> Command.run
-    ~version:"0.2.0"
+    ~version:"0.2.1"
