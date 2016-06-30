@@ -6,5 +6,5 @@ PKG cohttp
 PKG cohttp.async
 PKG websocket
 PKG websocket.async
-S src/ws
-S src/rtm
+S src
+B _build/src
