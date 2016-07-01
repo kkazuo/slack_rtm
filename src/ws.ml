@@ -45,5 +45,5 @@ let connect uri f =
 let ws_client uri ~f =
   let uri = Uri.of_string uri in
   connect uri (fun sock r w ssl ->
-      Websocket_async.client_ez uri sock r w >>= fun (r, w) ->
+      let (r, w) = Websocket_async.client_ez uri sock r w in
       f sock r w ssl)

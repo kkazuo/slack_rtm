@@ -1,6 +1,6 @@
 opam-version: "1.2"
 name: "slack-rtm"
-version: "0.2.1"
+version: "0.2.2"
 maintainer: "Kazuo Koga <obiwanko@me.com>"
 authors: "Kazuo Koga <obiwanko@me.com>"
 license: "Apache License, Version 2.0"
@@ -23,13 +23,13 @@ install: [
   ["opam-installer" "--prefix=%{prefix}%" "slack_rtm.install"]
 ]
 remove: [
-  ["opam-installer" "--prefix=%{prefix}%" "-u" "slack_rtm.install"]
+  ["opam-installer" "--prefix=%{prefix}%" "-u"]
 ]
 depends: [
   "ocamlfind"        { build }
   "core"             { >= "113.33" }
   "async_ssl"        { >= "113.33" }
-  "websocket"        { >= "2.2" }
+  "websocket"        { >= "2.3" }
   "yojson"           { >= "1.3.2" }
   "cohttp"           { >= "0.21.0" }
 ]
