@@ -2,7 +2,7 @@ opam-version: "1.2"
 name: "slack-rtm"
 version: "0.2.2"
 maintainer: "Kazuo Koga <obiwanko@me.com>"
-authors: "Kazuo Koga <obiwanko@me.com>"
+authors: "Kazuo Koga"
 license: "Apache License, Version 2.0"
 homepage: "https://github.com/kkazuo/slack_rtm"
 bug-reports: "https://github.com/kkazuo/slack_rtm/issues"
@@ -32,4 +32,7 @@ depends: [
   "websocket"        { >= "2.3" }
   "yojson"           { >= "1.3.2" }
   "cohttp"           { >= "0.21.0" }
+]
+available: [
+  ocaml-version >= "4.03.0"
 ]
